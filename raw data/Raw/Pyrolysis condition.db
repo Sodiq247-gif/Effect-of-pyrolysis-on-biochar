@@ -1,0 +1,24 @@
+CREATE TABLE WoodSample (
+  sample_id INTEGER PRIMARY KEY,
+  wood_type TEXT,
+  source TEXT
+);
+
+CREATE TABLE PyrolysisCondition (
+  condition_id INTEGER PRIMARY KEY,
+  sample_id INTEGER,
+  residence_time TEXT,
+  temperature INTEGER,
+  date_run DATE,
+  FOREIGN KEY (sample_id) REFERENCES WoodSample(sample_id)
+);
+
+CREATE TABLE BiocharProperty (
+  property_id INTEGER PRIMARY KEY,
+  condition_id INTEGER,
+  carbon_content REAL,
+  nitrogen_content REAL,
+  cn_ratio REAL,
+  density REAL,
+  FOREIGN KEY (condition_id) REFERENCES PyrolysisCondition(condition_id)
+);
