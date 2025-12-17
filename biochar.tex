@@ -1,0 +1,942 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Effect of Pyrolysis condition on biochar},
+  pdfauthor={Sodiq Yusuf},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Effect of Pyrolysis condition on biochar}
+\author{Sodiq Yusuf}
+\date{2025-12-08}
+
+\begin{document}
+\maketitle
+
+\begin{verbatim}
+## Warning: package 'DBI' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'RSQLite' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'readr' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'purrr' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'stringr' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'forcats' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'lubridate' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.1     v stringr   1.5.1
+## v ggplot2   4.0.0     v tibble    3.2.1
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.1.0     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+' \# Chapter 1: introduction Pyrolysis is the thermal decomposition of a
+substance in the absence of air. The products of this process include
+solid biochar, liquid bio-oil, and gaseous bio-gas. Recent research have
+explored pyrolysis technology as a viable technique to convert wastes to
+useful products such as biochar, bio-oil and gases. Biochar is the black
+solid residue that have great potential for carbon sequestration,
+environmental remediation, biodegradability.
+
+The rapid advancements in Additive Manufacturing (AM), commonly known as
+3D printing, have revolutionized various industries by enabling the
+production of complex geometries with high precision and customization
+(Vidakis, 2024) (Bolanakis, 2024). Concurrently, there is a growing
+imperative to transition towards sustainable materials in manufacturing
+processes, driven by environmental concerns, resource depletion, and the
+need to reduce carbon footprints (Vidakis, 2024) (Bolanakis, 2025). This
+demand has spurred significant interest in developing eco-friendly
+composites for AM applications, utilizing renewable resources to replace
+conventional petroleum-based materials (Vidakis, 2023).
+
+Biochar, a carbon-rich material produced from the thermochemical
+conversion of biomass through pyrolysis, has emerged as a promising
+sustainable filler for polymer composites in AM (Bolanakis, 2024)
+(Aboughaly, 2023). Its superior porosity, large specific surface area,
+and high carbon content make it an attractive additive for enhancing the
+functionality and performance of 3D-printed parts (Bolanakis, 2024).
+Research has demonstrated that incorporating biochar into various
+polymer matrices, such as high-density polyethylene (HDPE), polyethylene
+terephthalate glycol (PETG), and polylactic acid (PLA), can
+significantly improve mechanical properties, including tensile strength,
+flexural strength, and impact resistance, while also contributing to the
+eco-friendly profile of the final product (Vidakis, 2024) (Bolanakis,
+2025) (Vidakis, 2023) (George, 2023) (Gkiliopoulos, 2025). For instance,
+biochar has been shown to increase the tensile strength by over 20\% and
+flexural strength by 35.9\% in HDPE composites at optimal loadings
+(Vidakis, 2024).
+
+The properties of biochar are not static but are highly dependent on the
+pyrolysis conditions employed during its production, particularly
+temperature and retention time (Wijitkosum, 2023) (Suman, 2017)
+(Fernandes, 2020). These parameters dictate critical characteristics
+such as carbon content, nitrogen content, carbon to nitrogen (C/N)
+ratio, density, and structural features reflected by the Raman factor
+(Wijitkosum, 2023) (Fernandes, 2020) (Zhang, 2024) (Venkatesh, 2022).
+For example, increasing pyrolysis temperature generally leads to higher
+carbon content, increased aromaticity (observable via Raman
+spectroscopy), and altered density, while nitrogen content and C/N ratio
+can vary, influencing properties like water-holding capacity and
+interfacial interactions within a composite (Wijitkosum, 2023)
+(Fernandes, 2020) (Zhang, 2024) (Venkatesh, 2022) (Hasan, 2019). These
+intrinsic properties of biochar, in turn, play a crucial role in
+determining its effectiveness as a reinforcing agent and its
+compatibility with polymer matrices in AM (Aboughaly, 2023).
+
+Despite the growing interest in biochar for AM, a comprehensive
+understanding of the direct correlation between specific pyrolysis
+conditions (temperature and retention time), the resulting biochar
+properties (carbon content, nitrogen content, C/N ratio, density, and
+Raman factor), and their subsequent impact on the mechanical performance
+(flexural strength and flexural modulus) of additive manufactured
+composites remains an area requiring further detailed investigation.
+Optimizing these relationships is critical for tailoring biochar to
+achieve desired material properties in AM applications, thereby
+maximizing its potential as a sustainable and high-performance filler.
+
+Therefore, this research aims to investigate the effect of pyrolysis
+conditions (temperature and retention time) on the properties of biochar
+(carbon content, nitrogen content, carbon to nitrogen ratio, density,
+and Raman factor) and how these biochar properties, in turn, affect the
+mechanical properties (flexural strength, flexural modulus) of
+composites prepared from the biochar through additive manufacturing.
+
+\subsection{1.1 Research objectives}\label{research-objectives}
+
+This research aims to investigate the effect of pyrolysis condition
+(temperature and retention time) on the properties of biochar(carbon
+content, nitrogen content, carbon to nitrogen ratio,density, and raman
+factor) and how this affect the mechanical properties (flexural
+strength, flexural modulus) of composites prepared from the biochar
+through additive manufacturing.
+
+\subsection{1.2 Justification of the
+research}\label{justification-of-the-research}
+
+A major challenge in the utilization of biobased materials for additive
+manufacturing is their hydrophobicity which subject them to decay with
+time especially in outdoor applications. Biochar are carbon rich
+hydrophobic material that can be produced from pyrolysis of biobased
+materials especially forest residues and wastes. In this research, Wood
+wastes are converted to biochar and the effect of the pyrolysis
+condition on biochar for additive manufacturing applications was
+investigated.
+
+\subsection{1.3 References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  (Vidakis, 2024) Vidakis, N et al.~(2024). Reinforced HDPE with
+  optimized biochar content for material extrusion additive
+  manufacturing: morphological, rheological, electrical, and
+  thermomechanical insights. Biochar, 6, 1-21.
+  \url{https://doi.org/10.1007/s42773-024-00314-5}
+\item
+  (Bolanakis, 2024) Bolanakis, N et al.~(2024). Enhancing 3D Printing
+  Materials with Biochar: A Literature Review. 2024 5th International
+  Conference in Electronic Engineering, Information Technology \&
+  Education (EEITE), 1-8.
+  \url{https://doi.org/10.1109/EEITE61750.2024.10654408}
+\item
+  (Bolanakis, 2025) Bolanakis, N et al.~(2025). Valorization of Biochar
+  as a Reinforcement Agent in Polyethylene Terephthalate Glycol for
+  Additive Manufacturing: A Comprehensive Content Optimization Course.
+  Journal of Manufacturing and Materials Processing.
+  \url{https://doi.org/10.3390/jmmp9020068}
+\item
+  (Vidakis, 2023) Vidakis, N et al.~(2023). Biochar filler in MEX and
+  VPP additive manufacturing: characterization and reinforcement effects
+  in polylactic acid and standard grade resin matrices. Biochar, 5,
+  1-21. \url{https://doi.org/10.1007/s42773-023-00238-6}
+\item
+  (Aboughaly, 2023) Aboughaly, M et al.~(2023). Enhancing the Potential
+  of Polymer Composites Using Biochar as a Filler: A Review. Polymers,
+  15. \url{https://doi.org/10.3390/polym15193981}
+\item
+  (George, 2023) George, J et al.~(2023). Improvement of Electrical and
+  Mechanical Properties of PLA/PBAT Composites Using Coconut Shell
+  Biochar for Antistatic Applications. Applied Sciences.
+  \url{https://doi.org/10.3390/app13020902}
+\item
+  (Gkiliopoulos, 2025) Gkiliopoulos, D et al.~(2025). Valorization of
+  Tomato Stem Waste: Biochar as a Filler in Three-Dimensional Printed
+  PLA Composites. Polymers, 17.
+  \url{https://doi.org/10.3390/polym17192565}
+\item
+  (Wijitkosum, 2023) Wijitkosum, S (2023). Influence of Pyrolysis
+  Temperature and Time on Biochar Properties and Its Potential for
+  Climate Change Mitigation. Journal of Human, Earth, and Future.
+  \url{https://doi.org/10.28991/hef-2023-04-04-07}
+\item
+  (Suman, 2017) Suman, S, Gautam, S (2017). Effect of pyrolysis time and
+  temperature on the characterization of biochars derived from biomass.
+  Energy Sources, Part A: Recovery, Utilization, and Environmental
+  Effects, 39, 933 - 940.
+  \url{https://doi.org/10.1080/15567036.2016.1276650}
+\item
+  (Fernandes, 2020) Fernandes, B C C et al.~(2020). Impact of Pyrolysis
+  Temperature on the Properties of Eucalyptus Wood-Derived Biochar.
+  Materials, 13. \url{https://doi.org/10.3390/ma13245841}
+\item
+  (Zhang, 2024) Zhang, H et al.~(2024). Roles of biochars' properties in
+  their water-holding capacity and bound water evaporation: quantitative
+  importance and controlling mechanism. Biochar, 6, 1-14.
+  \url{https://doi.org/10.1007/s42773-024-00317-2}
+\item
+  (Venkatesh, 2022) Venkatesh, G et al.~(2022). Characterization of
+  Biochar Derived from Crop Residues for Soil Amendment, Carbon
+  Sequestration and Energy Use. Sustainability.
+  \url{https://doi.org/10.3390/su14042295}
+\item
+  (Hasan, 2019) Hasan, M M et al.~(2019). Effect of Pyrolysis
+  Temperature and Time on Properties of Palm Kernel Shell-Based Biochar.
+  IOP Conference Series: Materials Science and Engineering, 548.
+  \url{https://doi.org/10.1088/1757-899X/548/1/012020}
+\end{itemize}
+
+\section{Chapter 2: Database
+creation}\label{chapter-2-database-creation}
+
+The data collected in this study include the pyrolysis conditions,
+biochar properties and the properties of biochar composites produced
+thorough additive manufacturing.
+
+li \#\# 2.1 load packages
+
+install.packages(c(``rmarkdown'',``knitr'',``tidyverse'',``DBI'',``RSQLite'',``dbplyr'',``kableExtra'',``ggpubr'',``here''))
+
+library(DBI)
+
+Lets establish a connection to the database:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biochar\_db }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(}\AttributeTok{drv =} \FunctionTok{SQLite}\NormalTok{(),}
+                        \StringTok{"C:/Users/Owner/OneDrive {-} University of Idaho/Documents/Effect of pyrolysis condition on properties of biochar for additive manufacturing application/biochar.db"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Load tables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbListTables}\NormalTok{(biochar\_db)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "BiocharPropertyValue" "BiocharSample"        "PropertyType"        
+## [4] "PyrolysisCondition"   "Sheet1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biochar }\OtherTok{\textless{}{-}} \FunctionTok{dbGetQuery}\NormalTok{(biochar\_db, }\StringTok{"SELECT *FROM sheet1;"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(biochar)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sample_code pyrolysis_type temperature_(°C) carbon_content_(%)
+## 1  BC_S450_r1           slow              450                 74
+## 2  BC_S450_r2           slow              450                 74
+## 3  BC_S450_r3           slow              450                 74
+## 4  BC_S525_r1           slow              525                 78
+## 5  BC_S525_r2           slow              525                 78
+## 6  BC_S525_r3           slow              525                 78
+##   nitrogen_content_(%) C/N_ratio density_g/cm3 raman_factor Flexural strength
+## 1                 0.40  185.0000       0.52520     1.536032              2.83
+## 2                 0.40  185.0000       0.52894     1.452542              2.65
+## 3                 0.40  185.0000       0.53038     1.482350              2.99
+## 4                 0.44  177.2727       0.55130     1.434615              2.56
+## 5                 0.44  177.2727       0.52520     1.483202              2.75
+## 6                 0.44  177.2727       0.52894     1.315257              2.58
+##   Flexural modulus
+## 1              926
+## 2             1091
+## 3             1036
+## 4              468
+## 5              510
+## 6              470
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"C:/Users/Owner/OneDrive {-} University of Idaho/Pictures/Screenshots/Screenshot 2025{-}09{-}24 103730.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../Pictures/Screenshots/Screenshot 2025-09-24 103730.png}}
+\#\# 2.1 Create table for pyrolysis condition
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbExecute}\NormalTok{(biochar\_db, }\StringTok{"}
+\StringTok{CREATE TABLE IF NOT EXISTS PyrolysisCondition (}
+\StringTok{condition\_id INTEGER PRIMARY KEY,}
+\StringTok{pyrolysis\_type TEXT NOT NULL,}
+\StringTok{temperature\_c INTEGER NOT NULL,}
+\StringTok{notes TEXT}
+\StringTok{);}
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\subsection{2.2 Create Table Biochar
+sample}\label{create-table-biochar-sample}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbExecute}\NormalTok{(biochar\_db, }\StringTok{"}
+\StringTok{CREATE TABLE IF NOT EXISTS BiocharSample (}
+\StringTok{sample\_id     INTEGER PRIMARY KEY,}
+\StringTok{condition\_id  INTEGER NOT NULL,}
+\StringTok{sample\_code   TEXT    NOT NULL UNIQUE,}
+\StringTok{date\_produced TEXT,}
+\StringTok{FOREIGN KEY (condition\_id) REFERENCES PyrolysisCondition(condition\_id) ON DELETE RESTRICT ON UPDATE CASCADE}
+\StringTok{);}
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\subsection{2.3 CREATE table for Property
+type}\label{create-table-for-property-type}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbExecute}\NormalTok{(biochar\_db, }\StringTok{"}
+\StringTok{CREATE TABLE IF NOT EXISTS PropertyType (}
+\StringTok{property\_id   INTEGER PRIMARY KEY,}
+\StringTok{property\_name TEXT    NOT NULL UNIQUE,}
+\StringTok{unit          TEXT,}
+\StringTok{description   TEXT}
+\StringTok{);}
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\subsection{2.4 CREATE TABLE FOR Biocharproperty
+value}\label{create-table-for-biocharproperty-value}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dbExecute}\NormalTok{(biochar\_db, }\StringTok{"}
+\StringTok{CREATE TABLE IF NOT EXISTS BiocharPropertyValue (}
+\StringTok{property\_value\_id INTEGER PRIMARY KEY,}
+\StringTok{sample\_id         INTEGER NOT NULL,}
+\StringTok{property\_id       INTEGER NOT NULL,}
+\StringTok{value             TEXT    NOT NULL,}
+\StringTok{method            TEXT,}
+\StringTok{notes             TEXT,}
+\StringTok{recorded\_at       TEXT DEFAULT (datetime(\textquotesingle{}now\textquotesingle{})),}
+\StringTok{FOREIGN KEY (sample\_id)   REFERENCES BiocharSample(sample\_id) ON DELETE CASCADE ON UPDATE CASCADE,}
+\StringTok{FOREIGN KEY (property\_id) REFERENCES PropertyType(property\_id) ON DELETE RESTRICT ON UPDATE CASCADE}
+\StringTok{);}
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\section{Chapter 3: Data wrangling}\label{chapter-3-data-wrangling}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Install packages if needed}
+\NormalTok{required\_packages }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"DBI"}\NormalTok{, }\StringTok{"RSQLite"}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in}\NormalTok{ required\_packages) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(p, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{)) \{}
+    \FunctionTok{install.packages}\NormalTok{(p)}
+    \FunctionTok{library}\NormalTok{(p, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# Connect to the biochar database}
+\NormalTok{biochar\_db }\OtherTok{\textless{}{-}} \FunctionTok{dbConnect}\NormalTok{(}
+  \AttributeTok{drv =} \FunctionTok{SQLite}\NormalTok{(),}
+  \AttributeTok{dbname =} \StringTok{"C:/Users/Owner/OneDrive {-} University of Idaho/Documents/Effect of pyrolysis condition on properties of biochar for additive manufacturing application/biochar.db"}
+\NormalTok{)}
+
+\CommentTok{\# Check available tables}
+\FunctionTok{dbListTables}\NormalTok{(biochar\_db)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "BiocharPropertyValue" "BiocharSample"        "PropertyType"        
+## [4] "PyrolysisCondition"   "Sheet1"
+\end{verbatim}
+
+\subsection{Load table from biochar}\label{load-table-from-biochar}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 🔄 **LOAD TABLES FROM \textasciigrave{}biochar.db\textasciigrave{}**  }
+
+\CommentTok{\# Replace these with your actual table names}
+\NormalTok{biochar\_raw }\OtherTok{\textless{}{-}} \FunctionTok{dbGetQuery}\NormalTok{(biochar\_db, }\StringTok{"SELECT * FROM Sheet1;"}\NormalTok{)}
+
+\CommentTok{\# If you create additional tables later, load them here:}
+\CommentTok{\# pyrolysis \textless{}{-} dbGetQuery(biochar\_db, "SELECT * FROM PyrolysisCondition;")}
+\CommentTok{\# feedstock \textless{}{-} dbGetQuery(biochar\_db, "SELECT * FROM Feedstock;")}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Subsetting columns}\label{subsetting-columns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 🧱 **SUBSETTING COLUMNS**}
+
+\CommentTok{\# Example: select key variables (edit names to match your dataset)}
+\NormalTok{biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{)   }\CommentTok{\# or select(colA, colB, colC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sample_code pyrolysis_type temperature_(°C) carbon_content_(%)
+## 1   BC_S450_r1           slow              450                 74
+## 2   BC_S450_r2           slow              450                 74
+## 3   BC_S450_r3           slow              450                 74
+## 4   BC_S525_r1           slow              525                 78
+## 5   BC_S525_r2           slow              525                 78
+## 6   BC_S525_r3           slow              525                 78
+## 7   BC_S600_r1           slow              600                 84
+## 8   BC_S600_r2           slow              600                 84
+## 9   BC_S600_r3           slow              600                 84
+## 10  BC_F450_r1           fast              450                 70
+## 11  BC_F450_r2           fast              450                 70
+## 12  BC_F450_r3           fast              450                 70
+## 13  BC_F525_r1           fast              525                 77
+## 14  BC_F525_r2           fast              525                 77
+## 15  BC_F525_r3           fast              525                 77
+## 16  BC_F600_r1           fast              600                 84
+## 17  BC_F600_r2           fast              600                 84
+## 18  BC_F600_r3           fast              600                 84
+##    nitrogen_content_(%)
+## 1                  0.40
+## 2                  0.40
+## 3                  0.40
+## 4                  0.44
+## 5                  0.44
+## 6                  0.44
+## 7                  0.51
+## 8                  0.51
+## 9                  0.51
+## 10                 0.26
+## 11                 0.26
+## 12                 0.26
+## 13                 0.41
+## 14                 0.41
+## 15                 0.41
+## 16                 0.56
+## 17                 0.56
+## 18                 0.56
+\end{verbatim}
+
+\subsection{Subsetting rows}\label{subsetting-rows}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 🔍 **SUBSETTING ROWS**}
+\CommentTok{\# Conditional filtering}
+\NormalTok{biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{temperature\_(°C)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textgreater{}} \DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sample_code pyrolysis_type temperature_(°C) carbon_content_(%)
+## 1   BC_S525_r1           slow              525                 78
+## 2   BC_S525_r2           slow              525                 78
+## 3   BC_S525_r3           slow              525                 78
+## 4   BC_S600_r1           slow              600                 84
+## 5   BC_S600_r2           slow              600                 84
+## 6   BC_S600_r3           slow              600                 84
+## 7   BC_F525_r1           fast              525                 77
+## 8   BC_F525_r2           fast              525                 77
+## 9   BC_F525_r3           fast              525                 77
+## 10  BC_F600_r1           fast              600                 84
+## 11  BC_F600_r2           fast              600                 84
+## 12  BC_F600_r3           fast              600                 84
+##    nitrogen_content_(%) C/N_ratio density_g/cm3 raman_factor Flexural strength
+## 1                  0.44  177.2727       0.55130     1.434615             2.560
+## 2                  0.44  177.2727       0.52520     1.483202             2.750
+## 3                  0.44  177.2727       0.52894     1.315257             2.580
+## 4                  0.51  164.7059       0.53038     1.380562             2.910
+## 5                  0.51  164.7059       0.55150     1.395586             2.720
+## 6                  0.51  164.7059       0.51140     1.444831             2.640
+## 7                  0.41  187.8049       0.50850     1.474576             5.855
+## 8                  0.41  187.8049       0.50872     1.477273             5.642
+## 9                  0.41  187.8049       0.51512     1.474576             5.790
+## 10                 0.56  150.0000       0.68180     1.292135             8.770
+## 11                 0.56  150.0000       0.69200     1.316384             9.470
+## 12                 0.56  150.0000       0.69140     1.188889             8.030
+##    Flexural modulus
+## 1               468
+## 2               510
+## 3               470
+## 4               588
+## 5               667
+## 6               608
+## 7              1780
+## 8              1599
+## 9              1575
+## 10             3042
+## 11             3087
+## 12             3052
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Positional subsetting}
+\NormalTok{biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sample_code pyrolysis_type temperature_(°C) carbon_content_(%)
+## 1   BC_S450_r1           slow              450                 74
+## 2   BC_S450_r2           slow              450                 74
+## 3   BC_S450_r3           slow              450                 74
+## 4   BC_S525_r1           slow              525                 78
+## 5   BC_S525_r2           slow              525                 78
+## 6   BC_S525_r3           slow              525                 78
+## 7   BC_S600_r1           slow              600                 84
+## 8   BC_S600_r2           slow              600                 84
+## 9   BC_S600_r3           slow              600                 84
+## 10  BC_F450_r1           fast              450                 70
+##    nitrogen_content_(%) C/N_ratio density_g/cm3 raman_factor Flexural strength
+## 1                  0.40  185.0000      0.525200     1.536032              2.83
+## 2                  0.40  185.0000      0.528940     1.452542              2.65
+## 3                  0.40  185.0000      0.530380     1.482350              2.99
+## 4                  0.44  177.2727      0.551300     1.434615              2.56
+## 5                  0.44  177.2727      0.525200     1.483202              2.75
+## 6                  0.44  177.2727      0.528940     1.315257              2.58
+## 7                  0.51  164.7059      0.530380     1.380562              2.91
+## 8                  0.51  164.7059      0.551500     1.395586              2.72
+## 9                  0.51  164.7059      0.511400     1.444831              2.64
+## 10                 0.26  269.2308      0.381898     1.492308              2.04
+##    Flexural modulus
+## 1               926
+## 2              1091
+## 3              1036
+## 4               468
+## 5               510
+## 6               470
+## 7               588
+## 8               667
+## 9               608
+## 10              611
+\end{verbatim}
+
+\subsection{Pipe operator}\label{pipe-operator}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 🧵 **PIPE OPERATOR EXAMPLE**}
+\NormalTok{biochar\_filtered }\OtherTok{\textless{}{-}}\NormalTok{ biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{temperature\_(°C)}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Flexural strength}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{biochar\_filtered}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   temperature_(°C) Flexural strength Flexural modulus
+## 1              450              2.83              926
+\end{verbatim}
+
+\subsection{Converting temperature to
+K}\label{converting-temperature-to-k}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# ➕ **CREATING NEW COLUMNS**}
+\NormalTok{biochar\_mutated }\OtherTok{\textless{}{-}}\NormalTok{ biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Temp\_K =} \StringTok{\textasciigrave{}}\AttributeTok{temperature\_(°C)}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \FloatTok{273.15}\NormalTok{)}
+
+\NormalTok{biochar\_mutated}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sample_code pyrolysis_type temperature_(°C) carbon_content_(%)
+## 1   BC_S450_r1           slow              450                 74
+## 2   BC_S450_r2           slow              450                 74
+## 3   BC_S450_r3           slow              450                 74
+## 4   BC_S525_r1           slow              525                 78
+## 5   BC_S525_r2           slow              525                 78
+## 6   BC_S525_r3           slow              525                 78
+## 7   BC_S600_r1           slow              600                 84
+## 8   BC_S600_r2           slow              600                 84
+## 9   BC_S600_r3           slow              600                 84
+## 10  BC_F450_r1           fast              450                 70
+## 11  BC_F450_r2           fast              450                 70
+## 12  BC_F450_r3           fast              450                 70
+## 13  BC_F525_r1           fast              525                 77
+## 14  BC_F525_r2           fast              525                 77
+## 15  BC_F525_r3           fast              525                 77
+## 16  BC_F600_r1           fast              600                 84
+## 17  BC_F600_r2           fast              600                 84
+## 18  BC_F600_r3           fast              600                 84
+##    nitrogen_content_(%) C/N_ratio density_g/cm3 raman_factor Flexural strength
+## 1                  0.40  185.0000      0.525200     1.536032             2.830
+## 2                  0.40  185.0000      0.528940     1.452542             2.650
+## 3                  0.40  185.0000      0.530380     1.482350             2.990
+## 4                  0.44  177.2727      0.551300     1.434615             2.560
+## 5                  0.44  177.2727      0.525200     1.483202             2.750
+## 6                  0.44  177.2727      0.528940     1.315257             2.580
+## 7                  0.51  164.7059      0.530380     1.380562             2.910
+## 8                  0.51  164.7059      0.551500     1.395586             2.720
+## 9                  0.51  164.7059      0.511400     1.444831             2.640
+## 10                 0.26  269.2308      0.381898     1.492308             2.040
+## 11                 0.26  269.2308      0.382670     1.492308             1.810
+## 12                 0.26  269.2308      0.386570     1.492308             1.980
+## 13                 0.41  187.8049      0.508500     1.474576             5.855
+## 14                 0.41  187.8049      0.508720     1.477273             5.642
+## 15                 0.41  187.8049      0.515120     1.474576             5.790
+## 16                 0.56  150.0000      0.681800     1.292135             8.770
+## 17                 0.56  150.0000      0.692000     1.316384             9.470
+## 18                 0.56  150.0000      0.691400     1.188889             8.030
+##    Flexural modulus Temp_K
+## 1               926 723.15
+## 2              1091 723.15
+## 3              1036 723.15
+## 4               468 798.15
+## 5               510 798.15
+## 6               470 798.15
+## 7               588 873.15
+## 8               667 873.15
+## 9               608 873.15
+## 10              611 723.15
+## 11              533 723.15
+## 12              580 723.15
+## 13             1780 798.15
+## 14             1599 798.15
+## 15             1575 798.15
+## 16             3042 873.15
+## 17             3087 873.15
+## 18             3052 873.15
+\end{verbatim}
+
+\subsection{Tibble}\label{tibble}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 📘 **CONVERT TO TIBBLE**}
+\NormalTok{biochar\_tbl }\OtherTok{\textless{}{-}}\NormalTok{ biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as\_tibble}\NormalTok{()}
+\NormalTok{biochar\_tbl}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 18 x 10
+##    Sample_code pyrolysis_type `temperature_(°C)` `carbon_content_(%)`
+##    <chr>       <chr>                       <int>                <int>
+##  1 BC_S450_r1  slow                          450                   74
+##  2 BC_S450_r2  slow                          450                   74
+##  3 BC_S450_r3  slow                          450                   74
+##  4 BC_S525_r1  slow                          525                   78
+##  5 BC_S525_r2  slow                          525                   78
+##  6 BC_S525_r3  slow                          525                   78
+##  7 BC_S600_r1  slow                          600                   84
+##  8 BC_S600_r2  slow                          600                   84
+##  9 BC_S600_r3  slow                          600                   84
+## 10 BC_F450_r1  fast                          450                   70
+## 11 BC_F450_r2  fast                          450                   70
+## 12 BC_F450_r3  fast                          450                   70
+## 13 BC_F525_r1  fast                          525                   77
+## 14 BC_F525_r2  fast                          525                   77
+## 15 BC_F525_r3  fast                          525                   77
+## 16 BC_F600_r1  fast                          600                   84
+## 17 BC_F600_r2  fast                          600                   84
+## 18 BC_F600_r3  fast                          600                   84
+## # i 6 more variables: `nitrogen_content_(%)` <dbl>, `C/N_ratio` <dbl>,
+## #   `density_g/cm3` <dbl>, raman_factor <dbl>, `Flexural strength` <dbl>,
+## #   `Flexural modulus` <int>
+\end{verbatim}
+
+\subsection{Joining tables}\label{joining-tables}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 🔗 **JOINING TABLES**  }
+\CommentTok{\# Example join (uncomment when you have second table)}
+\CommentTok{\# biochar\_joined \textless{}{-} biochar\_raw \%\textgreater{}\% }
+\CommentTok{\#   left\_join(pyrolysis, by = "condition\_id")}
+\CommentTok{\# biochar\_joined}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Groupwise summary}\label{groupwise-summary}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 📊 **GROUPWISE SUMMARIES**}
+\CommentTok{\# Min, mean, max Flexural strength}
+\NormalTok{biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(pyrolysis\_type) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min\_fs =} \FunctionTok{min}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural strength}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{mean\_fs =} \FunctionTok{mean}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural strength}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{max\_fs =} \FunctionTok{max}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural strength}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(mean\_fs))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   pyrolysis_type min_fs mean_fs max_fs
+##   <chr>           <dbl>   <dbl>  <dbl>
+## 1 fast             1.81    5.49   9.47
+## 2 slow             2.56    2.74   2.99
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Min, mean, max Flexural modulus}
+\NormalTok{biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(pyrolysis\_type) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{min\_fm =} \FunctionTok{min}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{mean\_fm =} \FunctionTok{mean}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{max\_fm =} \FunctionTok{max}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(mean\_fm))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   pyrolysis_type min_fm mean_fm max_fm
+##   <chr>           <int>   <dbl>  <int>
+## 1 fast              533   1762.   3087
+## 2 slow              468    707.   1091
+\end{verbatim}
+
+\subsection{Extracting a single
+column}\label{extracting-a-single-column}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temps }\OtherTok{\textless{}{-}}\NormalTok{ biochar\_raw }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pull}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{temperature\_(°C)}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{temps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 450 450 450 525 525 525 600 600 600 450 450 450 525 525 525 600 600 600
+\end{verbatim}
+
+\subsection{Conditional value
+assignment}\label{conditional-value-assignment}
+
+\begin{verbatim}
+##   carbon_content_(%) n
+## 1               High 6
+## 2                Low 6
+## 3             Medium 6
+\end{verbatim}
+
+\section{Chapter 4: Data
+visualization}\label{chapter-4-data-visualization}
+
+\subsection{4.1 Temperature vs carbon
+content}\label{temperature-vs-carbon-content}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Scatterplot: Temperature vs carbon\_content**}
+\FunctionTok{ggplot}\NormalTok{(biochar, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{temperature\_(°C)}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{carbon\_content\_(\%)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Relationship Between Temperature and carbon content"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Temperature (°C)"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Carbon content"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{biochar_files/figure-latex/scatterplot of temp against carbon content-1.pdf}}
+\#\# 4.2 Box plot
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(biochar, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pyrolysis\_type, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Flexural modulus}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"skyblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Effect of pyrolysis type vs flexural strength"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"pyrolysis type"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Flexural modulus"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{biochar_files/figure-latex/box plot-1.pdf}}
+
+\end{document}

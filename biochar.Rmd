@@ -1,0 +1,298 @@
+---
+title: "Effect of Pyrolysis condition on biochar"
+author: "Sodiq Yusuf"
+date: "2025-12-08"
+output: pdf_document
+---
+
+```{r pkgs, echo = FALSE, eval=TRUE}
+library(DBI)
+library(RSQLite)
+library(tidyverse)
+```
+'
+# Chapter 1: introduction
+Pyrolysis is the thermal decomposition of a substance in the absence of air. The products of this process include solid biochar, liquid bio-oil, and gaseous bio-gas.
+Recent research have explored pyrolysis technology as a viable technique to convert wastes to useful products such as biochar, bio-oil and gases. Biochar is the black solid residue that have great potential for carbon sequestration, environmental remediation, biodegradability.
+
+The rapid advancements in Additive Manufacturing (AM), commonly known as 3D printing, have revolutionized various industries by enabling the production of complex geometries with high precision and customization (Vidakis, 2024) (Bolanakis, 2024). Concurrently, there is a growing imperative to transition towards sustainable materials in manufacturing processes, driven by environmental concerns, resource depletion, and the need to reduce carbon footprints (Vidakis, 2024) (Bolanakis, 2025). This demand has spurred significant interest in developing eco-friendly composites for AM applications, utilizing renewable resources to replace conventional petroleum-based materials (Vidakis, 2023).
+
+Biochar, a carbon-rich material produced from the thermochemical conversion of biomass through pyrolysis, has emerged as a promising sustainable filler for polymer composites in AM (Bolanakis, 2024) (Aboughaly, 2023). Its superior porosity, large specific surface area, and high carbon content make it an attractive additive for enhancing the functionality and performance of 3D-printed parts (Bolanakis, 2024). Research has demonstrated that incorporating biochar into various polymer matrices, such as high-density polyethylene (HDPE), polyethylene terephthalate glycol (PETG), and polylactic acid (PLA), can significantly improve mechanical properties, including tensile strength, flexural strength, and impact resistance, while also contributing to the eco-friendly profile of the final product (Vidakis, 2024) (Bolanakis, 2025) (Vidakis, 2023) (George, 2023) (Gkiliopoulos, 2025). For instance, biochar has been shown to increase the tensile strength by over 20% and flexural strength by 35.9% in HDPE composites at optimal loadings (Vidakis, 2024).
+
+The properties of biochar are not static but are highly dependent on the pyrolysis conditions employed during its production, particularly temperature and retention time (Wijitkosum, 2023) (Suman, 2017) (Fernandes, 2020). These parameters dictate critical characteristics such as carbon content, nitrogen content, carbon to nitrogen (C/N) ratio, density, and structural features reflected by the Raman factor (Wijitkosum, 2023) (Fernandes, 2020) (Zhang, 2024) (Venkatesh, 2022). For example, increasing pyrolysis temperature generally leads to higher carbon content, increased aromaticity (observable via Raman spectroscopy), and altered density, while nitrogen content and C/N ratio can vary, influencing properties like water-holding capacity and interfacial interactions within a composite (Wijitkosum, 2023) (Fernandes, 2020) (Zhang, 2024) (Venkatesh, 2022) (Hasan, 2019). These intrinsic properties of biochar, in turn, play a crucial role in determining its effectiveness as a reinforcing agent and its compatibility with polymer matrices in AM (Aboughaly, 2023).
+
+Despite the growing interest in biochar for AM, a comprehensive understanding of the direct correlation between specific pyrolysis conditions (temperature and retention time), the resulting biochar properties (carbon content, nitrogen content, C/N ratio, density, and Raman factor), and their subsequent impact on the mechanical performance (flexural strength and flexural modulus) of additive manufactured composites remains an area requiring further detailed investigation. Optimizing these relationships is critical for tailoring biochar to achieve desired material properties in AM applications, thereby maximizing its potential as a sustainable and high-performance filler.
+
+Therefore, this research aims to investigate the effect of pyrolysis conditions (temperature and retention time) on the properties of biochar (carbon content, nitrogen content, carbon to nitrogen ratio, density, and Raman factor) and how these biochar properties, in turn, affect the mechanical properties (flexural strength, flexural modulus) of composites prepared from the biochar through additive manufacturing.
+
+
+
+
+
+## 1.1 Research objectives
+This research aims to investigate the effect of pyrolysis condition (temperature and retention time) on the properties of biochar(carbon content, nitrogen content, carbon to nitrogen ratio,density, and raman factor) and how this affect the mechanical properties (flexural strength, flexural modulus) of composites prepared from the biochar through additive manufacturing.
+
+## 1.2  Justification of the research
+A major challenge in the utilization of biobased materials for additive manufacturing is their hydrophobicity which subject them to decay with time especially in outdoor applications. Biochar are carbon rich hydrophobic material that can be produced from pyrolysis of biobased materials especially forest residues and wastes. In this research, Wood wastes are converted to biochar and the effect of the pyrolysis condition on biochar for additive manufacturing applications was investigated.
+
+
+## 1.3  References
+* (Vidakis, 2024) Vidakis, N et al. (2024). Reinforced HDPE with optimized biochar content for material extrusion additive manufacturing: morphological, rheological, electrical, and thermomechanical insights. Biochar, 6, 1-21. <https://doi.org/10.1007/s42773-024-00314-5>
+* (Bolanakis, 2024) Bolanakis, N et al. (2024). Enhancing 3D Printing Materials with Biochar: A Literature Review. 2024 5th International Conference in Electronic Engineering, Information Technology & Education (EEITE), 1-8. <https://doi.org/10.1109/EEITE61750.2024.10654408>
+* (Bolanakis, 2025) Bolanakis, N et al. (2025). Valorization of Biochar as a Reinforcement Agent in Polyethylene Terephthalate Glycol for Additive Manufacturing: A Comprehensive Content Optimization Course. Journal of Manufacturing and Materials Processing. <https://doi.org/10.3390/jmmp9020068>
+* (Vidakis, 2023) Vidakis, N et al. (2023). Biochar filler in MEX and VPP additive manufacturing: characterization and reinforcement effects in polylactic acid and standard grade resin matrices. Biochar, 5, 1-21. <https://doi.org/10.1007/s42773-023-00238-6>
+* (Aboughaly, 2023) Aboughaly, M et al. (2023). Enhancing the Potential of Polymer Composites Using Biochar as a Filler: A Review. Polymers, 15. <https://doi.org/10.3390/polym15193981>
+* (George, 2023) George, J et al. (2023). Improvement of Electrical and Mechanical Properties of PLA/PBAT Composites Using Coconut Shell Biochar for Antistatic Applications. Applied Sciences. <https://doi.org/10.3390/app13020902>
+* (Gkiliopoulos, 2025) Gkiliopoulos, D et al. (2025). Valorization of Tomato Stem Waste: Biochar as a Filler in Three-Dimensional Printed PLA Composites. Polymers, 17. <https://doi.org/10.3390/polym17192565>
+* (Wijitkosum, 2023) Wijitkosum, S (2023). Influence of Pyrolysis Temperature and Time on Biochar Properties and Its Potential for Climate Change Mitigation. Journal of Human, Earth, and Future. <https://doi.org/10.28991/hef-2023-04-04-07>
+* (Suman, 2017) Suman, S, Gautam, S (2017). Effect of pyrolysis time and temperature on the characterization of biochars derived from biomass. Energy Sources, Part A: Recovery, Utilization, and Environmental Effects, 39, 933 - 940. <https://doi.org/10.1080/15567036.2016.1276650>
+* (Fernandes, 2020) Fernandes, B C C et al. (2020). Impact of Pyrolysis Temperature on the Properties of Eucalyptus Wood-Derived Biochar. Materials, 13. <https://doi.org/10.3390/ma13245841>
+* (Zhang, 2024) Zhang, H et al. (2024). Roles of biochars’ properties in their water-holding capacity and bound water evaporation: quantitative importance and controlling mechanism. Biochar, 6, 1-14. <https://doi.org/10.1007/s42773-024-00317-2>
+* (Venkatesh, 2022) Venkatesh, G et al. (2022). Characterization of Biochar Derived from Crop Residues for Soil Amendment, Carbon Sequestration and Energy Use. Sustainability. <https://doi.org/10.3390/su14042295>
+* (Hasan, 2019) Hasan, M M et al. (2019). Effect of Pyrolysis Temperature and Time on Properties of Palm Kernel Shell-Based Biochar. IOP Conference Series: Materials Science and Engineering, 548. <https://doi.org/10.1088/1757-899X/548/1/012020>
+
+# Chapter 2: Database creation
+
+The data collected in this study include the pyrolysis conditions, biochar properties and the properties of biochar composites produced thorough additive manufacturing.
+
+li
+## 2.1 load packages
+
+install.packages(c("rmarkdown","knitr","tidyverse","DBI","RSQLite","dbplyr","kableExtra","ggpubr","here"))
+
+library(DBI)
+
+Lets establish a connection to the database:
+```{r db, echo=TRUE, eval=TRUE}
+biochar_db <- dbConnect(drv = SQLite(),
+                        "C:/Users/Owner/OneDrive - University of Idaho/Documents/Effect of pyrolysis condition on properties of biochar for additive manufacturing application/biochar.db")
+```
+
+Load tables
+
+```{r data, echo = TRUE, eval = TRUE}
+dbListTables(biochar_db)
+biochar <- dbGetQuery(biochar_db, "SELECT *FROM sheet1;")
+head(biochar)
+knitr::include_graphics("C:/Users/Owner/OneDrive - University of Idaho/Pictures/Screenshots/Screenshot 2025-09-24 103730.png")
+```
+## 2.1 Create table for pyrolysis condition
+
+```{r create Pyrolysis Condition,eval = TRUE, echo = TRUE}
+dbExecute(biochar_db, "
+CREATE TABLE IF NOT EXISTS PyrolysisCondition (
+condition_id INTEGER PRIMARY KEY,
+pyrolysis_type TEXT NOT NULL,
+temperature_c INTEGER NOT NULL,
+notes TEXT
+);
+")
+```
+## 2.2 Create Table Biochar sample
+
+```{r CREATE Biochar sample, echo=TRUE, eval=TRUE}
+dbExecute(biochar_db, "
+CREATE TABLE IF NOT EXISTS BiocharSample (
+sample_id     INTEGER PRIMARY KEY,
+condition_id  INTEGER NOT NULL,
+sample_code   TEXT    NOT NULL UNIQUE,
+date_produced TEXT,
+FOREIGN KEY (condition_id) REFERENCES PyrolysisCondition(condition_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+")
+```
+## 2.3  CREATE table for Property type
+
+```{r CREATE table for property type, eval=TRUE, echo=TRUE}
+dbExecute(biochar_db, "
+CREATE TABLE IF NOT EXISTS PropertyType (
+property_id   INTEGER PRIMARY KEY,
+property_name TEXT    NOT NULL UNIQUE,
+unit          TEXT,
+description   TEXT
+);
+")
+```
+## 2.4 CREATE TABLE FOR Biocharproperty value
+```{r CREATE TABLE FOR Biocharproperty value, echo=TRUE, eval=TRUE}
+dbExecute(biochar_db, "
+CREATE TABLE IF NOT EXISTS BiocharPropertyValue (
+property_value_id INTEGER PRIMARY KEY,
+sample_id         INTEGER NOT NULL,
+property_id       INTEGER NOT NULL,
+value             TEXT    NOT NULL,
+method            TEXT,
+notes             TEXT,
+recorded_at       TEXT DEFAULT (datetime('now')),
+FOREIGN KEY (sample_id)   REFERENCES BiocharSample(sample_id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (property_id) REFERENCES PropertyType(property_id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+")
+```
+
+# Chapter 3: Data wrangling
+
+```{r Setup data, echo=TRUE, eval=TRUE}
+
+# Install packages if needed
+required_packages <- c("tidyverse", "DBI", "RSQLite")
+
+for (p in required_packages) {
+  if (!require(p, character.only = TRUE)) {
+    install.packages(p)
+    library(p, character.only = TRUE)
+  }
+}
+
+# Connect to the biochar database
+biochar_db <- dbConnect(
+  drv = SQLite(),
+  dbname = "C:/Users/Owner/OneDrive - University of Idaho/Documents/Effect of pyrolysis condition on properties of biochar for additive manufacturing application/biochar.db"
+)
+
+# Check available tables
+dbListTables(biochar_db)
+```
+## Load table from biochar
+
+```{r Load table from biochar, echo=TRUE, eval=TRUE}
+
+## 🔄 **LOAD TABLES FROM `biochar.db`**  
+
+# Replace these with your actual table names
+biochar_raw <- dbGetQuery(biochar_db, "SELECT * FROM Sheet1;")
+
+# If you create additional tables later, load them here:
+# pyrolysis <- dbGetQuery(biochar_db, "SELECT * FROM PyrolysisCondition;")
+# feedstock <- dbGetQuery(biochar_db, "SELECT * FROM Feedstock;")
+
+```
+
+## Subsetting columns
+
+```{r subsetting columns, echo=TRUE,eval=TRUE}
+
+## 🧱 **SUBSETTING COLUMNS**
+
+# Example: select key variables (edit names to match your dataset)
+biochar_raw %>% 
+  select(1:5)   # or select(colA, colB, colC)
+```
+
+## Subsetting rows
+
+```{r, subset rows, echo = TRUE, eval = TRUE}
+## 🔍 **SUBSETTING ROWS**
+# Conditional filtering
+biochar_raw %>% filter(`temperature_(°C)` > 500)
+# Positional subsetting
+biochar_raw %>% slice(1:10)
+```
+
+## Pipe operator
+
+```{r piping, echo=TRUE, eval=TRUE}
+## 🧵 **PIPE OPERATOR EXAMPLE**
+biochar_filtered <- biochar_raw %>% 
+  select(`temperature_(°C)`, `Flexural strength`, `Flexural modulus`) %>% 
+  filter(`Flexural modulus` > 10) %>% 
+  slice(1)
+biochar_filtered
+```
+## Converting temperature to K
+
+```{r mutate, echo=TRUE, eval=TRUE}
+
+## ➕ **CREATING NEW COLUMNS**
+biochar_mutated <- biochar_raw %>% 
+  mutate(Temp_K = `temperature_(°C)` + 273.15)
+
+biochar_mutated
+
+```
+
+## Tibble
+
+```{r tibble, echo=TRUE, eval=TRUE}
+## 📘 **CONVERT TO TIBBLE**
+biochar_tbl <- biochar_raw %>% as_tibble()
+biochar_tbl
+```
+
+## Joining tables
+
+```{r echo=TRUE, eval=TRUE}
+## 🔗 **JOINING TABLES**  
+# Example join (uncomment when you have second table)
+# biochar_joined <- biochar_raw %>% 
+#   left_join(pyrolysis, by = "condition_id")
+# biochar_joined
+```
+
+## Groupwise summary
+
+```{r summary, echo=TRUE, eval=TRUE}
+## 📊 **GROUPWISE SUMMARIES**
+# Min, mean, max Flexural strength
+biochar_raw %>% 
+  group_by(pyrolysis_type) %>% 
+  summarize(
+    min_fs = min(`Flexural strength`, na.rm = TRUE),
+    mean_fs = mean(`Flexural strength`, na.rm = TRUE),
+    max_fs = max(`Flexural strength`, na.rm = TRUE)
+  ) %>% 
+  arrange(desc(mean_fs))
+# Min, mean, max Flexural modulus
+biochar_raw %>% 
+  group_by(pyrolysis_type) %>% 
+  summarize(
+    min_fm = min(`Flexural modulus`, na.rm = TRUE),
+    mean_fm = mean(`Flexural modulus`, na.rm = TRUE),
+    max_fm = max(`Flexural modulus`, na.rm = TRUE)
+  ) %>% 
+  arrange(desc(mean_fm))
+```
+## Extracting a single column
+```{r pull, echo=TRUE, eval=TRUE}
+temps <- biochar_raw %>% pull(`temperature_(°C)`)
+temps
+```
+## Conditional value assignment
+```{r case when, echo=TRUE, echo=FALSE}
+biochar_raw %>% 
+  mutate(`carbon_content_(%)` = case_when(
+    `carbon_content_(%)` < 75 ~ "Low",
+    `carbon_content_(%)` >= 75 & `carbon_content_(%)`< 80 ~ "Medium",
+    `carbon_content_(%)` >= 80 ~ "High",
+    TRUE ~ NA_character_
+  )) %>% 
+  count(`carbon_content_(%)`)
+```
+
+# Chapter 4: Data visualization
+## 4.1 Temperature vs carbon content
+```{r scatterplot of temp against carbon content, echo=TRUE, eval=TRUE}
+# Scatterplot: Temperature vs carbon_content**
+ggplot(biochar, aes(x = `temperature_(°C)`, y = `carbon_content_(%)`)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1) +
+  theme_minimal() +
+  labs(
+    title = "Relationship Between Temperature and carbon content",
+    x = "Temperature (°C)",
+    y = "Carbon content"
+  )
+```
+## 4.2 Box plot
+```{r box plot, echo=TRUE, eval=TRUE}
+ggplot(biochar, aes(x = pyrolysis_type, y = `Flexural modulus`)) +
+  geom_boxplot(fill = "skyblue") +
+  theme_minimal() +
+  labs(
+    title = "Effect of pyrolysis type vs flexural strength",
+    x = "pyrolysis type",
+    y = "Flexural modulus"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
